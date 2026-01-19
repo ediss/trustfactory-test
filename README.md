@@ -54,33 +54,33 @@ MAIL_PORT=1025
 
 4. Start Docker containers:
 ```bash
-docker-compose up -d --build
+docker compose up -d --build
 ```
 
 5. Install PHP dependencies:
 ```bash
-docker-compose run --rm composer install
+docker compose run --rm composer install
 ```
 
 6. Generate application key:
 ```bash
-docker-compose run --rm artisan key:generate
+docker compose run --rm artisan key:generate
 ```
 
 7. Run migrations and seeders:
 ```bash
-docker-compose run --rm artisan migrate --seed
+docker compose run --rm artisan migrate --seed
 ```
 
 8. Install Node dependencies and build assets:
 ```bash
-docker-compose run --rm npm install
-docker-compose run --rm npm run build
+docker compose run --rm npm install
+docker compose run --rm npm run build
 ```
 
 9. For development with hot reload:
 ```bash
-docker-compose run --rm --service-ports npm run dev
+docker compose run --rm --service-ports npm run dev
 ```
 
 The application will be available at: **http://localhost:8000**
@@ -100,25 +100,25 @@ The application will be available at: **http://localhost:8000**
 
 ```bash
 # Start all services
-docker-compose up -d
+docker compose up -d
 
 # Stop all services
-docker-compose down
+docker compose down
 
 # Run artisan commands
-docker-compose run --rm artisan <command>
+docker compose run --rm artisan <command>
 
 # Run composer commands
-docker-compose run --rm composer <command>
+docker compose run --rm composer <command>
 
 # Run npm commands
-docker-compose run --rm npm <command>
+docker compose run --rm npm <command>
 
 # View logs
-docker-compose logs -f app
+docker compose logs -f app
 
 # Access PHP container shell
-docker-compose exec php sh
+docker compose exec php sh
 ```
 
 ## Local Installation (Without Docker)
@@ -184,7 +184,7 @@ For the low stock notifications to work, run the queue worker:
 
 ```bash
 # Docker
-docker-compose run --rm artisan queue:work
+docker compose run --rm artisan queue:work
 
 # Local
 php artisan queue:work
@@ -196,7 +196,7 @@ The daily sales report runs at 6:00 PM daily. To enable the scheduler:
 
 **Docker:**
 ```bash
-docker-compose run --rm artisan schedule:work
+docker compose run --rm artisan schedule:work
 ```
 
 **Local (cron entry):**
@@ -233,7 +233,7 @@ docker-compose run --rm artisan schedule:work
 Run the test suite:
 ```bash
 # Docker
-docker-compose run --rm artisan test
+docker compose run --rm artisan test
 
 # Local
 php artisan test
