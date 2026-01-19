@@ -24,12 +24,13 @@ class CartView extends Component
         }
 
         if ($quantity > $cartItem->product->stock_quantity) {
-            session()->flash('error', 'Requested quantity exceeds available stock.');
+            $this->dispatch('notify', type: 'error', title: 'Stock limit', message: 'Requested quantity exceeds available stock.');
             return;
         }
 
         $cartItem->update(['quantity' => $quantity]);
         $this->dispatch('cart-updated');
+        $this->dispatch('notify', type: 'success', title: 'Updated', message: 'Cart quantity updated.');
     }
 
     public function removeItem(int $cartItemId): void
@@ -43,7 +44,7 @@ class CartView extends Component
 
         $cartItem->delete();
         $this->dispatch('cart-updated');
-        session()->flash('success', 'Item removed from cart.');
+        $this->dispatch('notify', type: 'success', title: 'Removed', message: 'Item removed from cart.');
     }
 
     #[On('cart-updated')]

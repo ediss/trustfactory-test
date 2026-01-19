@@ -5,7 +5,6 @@ namespace App\Livewire;
 use App\Models\Cart;
 use App\Models\CartItem;
 use App\Models\Product;
-use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Title;
 use Livewire\Component;
@@ -28,7 +27,7 @@ class ProductList extends Component
         $product = Product::findOrFail($productId);
 
         if ($product->stock_quantity < 1) {
-            session()->flash('error', 'This product is out of stock.');
+            $this->dispatch('notify', type: 'error', title: 'Out of stock', message: 'This product is out of stock.');
             return;
         }
 
@@ -43,7 +42,7 @@ class ProductList extends Component
             if ($cartItem->quantity < $product->stock_quantity) {
                 $cartItem->increment('quantity');
             } else {
-                session()->flash('error', 'Cannot add more items. Stock limit reached.');
+                $this->dispatch('notify', type: 'error', title: 'Stock limit', message: 'Cannot add more items. Stock limit reached.');
                 return;
             }
         } else {
@@ -55,7 +54,7 @@ class ProductList extends Component
         }
 
         $this->dispatch('cart-updated');
-        session()->flash('success', 'Product added to cart!');
+        $this->dispatch('notify', type: 'success', title: 'Added to cart', message: 'Product added to cart!');
     }
 
     public function updatingSearch(): void

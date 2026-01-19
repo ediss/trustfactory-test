@@ -25,14 +25,15 @@ class Checkout extends Component
         $cart = Cart::with('items.product')->where('user_id', Auth::id())->first();
 
         if (!$cart || $cart->items->isEmpty()) {
-            session()->flash('error', 'Your cart is empty.');
+            $this->dispatch('notify', type: 'error', title: 'Cart empty', message: 'Your cart is empty.');
             return;
         }
 
         // Verify stock availability
         foreach ($cart->items as $item) {
             if ($item->quantity > $item->product->stock_quantity) {
-                session()->flash('error', "Not enough stock for {$item->product->name}. Available: {$item->product->stock_quantity}");
+                $message = "Not enough stock for {$item->product->name}. Available: {$item->product->stock_quantity}";
+                $this->dispatch('notify', type: 'error', title: 'Stock issue', message: $message);
                 return;
             }
         }

@@ -2,6 +2,7 @@
 
 use App\Livewire\CartView;
 use App\Livewire\Checkout;
+use App\Livewire\OrderHistory;
 use App\Livewire\ProductList;
 use Illuminate\Support\Facades\Route;
 
@@ -14,6 +15,7 @@ Route::get('/products', ProductList::class)->name('products');
 Route::middleware(['auth'])->group(function () {
     Route::get('/cart', CartView::class)->name('cart');
     Route::get('/checkout', Checkout::class)->name('checkout');
+    Route::get('/orders', OrderHistory::class)->name('orders');
 });
 
 Route::view('dashboard', 'dashboard')

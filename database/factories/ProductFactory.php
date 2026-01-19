@@ -21,8 +21,8 @@ class ProductFactory extends Factory
             'name' => fake()->words(3, true),
             'description' => fake()->paragraph(),
             'price' => fake()->randomFloat(2, 9.99, 299.99),
-            'stock_quantity' => fake()->numberBetween(0, 100),
-            'low_stock_threshold' => fake()->numberBetween(3, 10),
+            'stock_quantity' => fake()->numberBetween(0, 10),
+            'low_stock_threshold' => 3,
         ];
     }
 
@@ -32,8 +32,8 @@ class ProductFactory extends Factory
     public function lowStock(): static
     {
         return $this->state(fn (array $attributes) => [
-            'stock_quantity' => fake()->numberBetween(1, 5),
-            'low_stock_threshold' => 10,
+            'stock_quantity' => fake()->numberBetween(1, 3),
+            'low_stock_threshold' => 3,
         ]);
     }
 
